@@ -1,112 +1,90 @@
 #ifndef JSON_H
 #define JSON_H
 
-
 /**
-* Permet de définir les différents types d'elements utiliser dans le json scalaire
+* Permet de définir les différents types d'elements utiliser dans le json :
+* - JSON_OBJECT: Objet json
+* - JSON_ARRAY: Tableau json
 * - JSON_STRING: Scalaire chaîne de caractère [char*]
 * - JSON_NUMBER: Scalaire nombre entier [int]
 * - JSON_FLOAT: Scalaire nombre flottant [float]
 * - JSON_DOUBLE: Scalaire nombre double [double]
 * - JSON_BOOLEAN: Scalaire boolean [boolean]
+* Utiliser pour transformer le json en tableau de caractères
 *
-* Remarque: Un conteneur est un objet ou un tableau
-* Remarque: Json est un conteneur
 * @Version 1.0
 * @Author Mascret Mehdi
 * @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
+* @UpdatedOn 13/10/2025
 */
-typedef enum JsonScalarType {
+typedef enum JsonElementType JsonElementType;
+enum JsonElementType {
   JSON_STRING,
   JSON_NUMBER,
   JSON_FLOAT,
   JSON_DOUBLE,
   JSON_BOOLEAN,
-};
-
-/**
-* Permet de définir les différents types d'elements utiliser dans le json conteneur
-* - JSON_OBJECT: Objet json
-* - JSON_ARRAY: Tableau json
-* 
-* @Version 1.0
-* @Author Mascret Mehdi
-* @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
-*/
-typedef enum JsonContainerType {
   JSON_OBJECT,
   JSON_ARRAY,
 };
 
 /**
-* Permet de définir les différents types d'elements utiliser dans le json
-* Utiliser pour transformer le json en tableau de caractères
-* @Version 1.0
-* @Author Mascret Mehdi
-* @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
-*/
-typedef enum JsonElementType = JsonScalarType | JsonContainerType;
-
-/**
-* Définit les champs et méthodes utiliser par les containeurs et scalaires
+* Permet de rajouter un scalaire
 * 
 * @Field key {char*} - Clé de l'élément
 * @Field value {void*} - Valeur de l'élément (char*, int, float, double, boolean)
 * @Field next {void*} - Pointeur sur le prochain élément du containeur
 * @Field previous {void*} - Pointeur sur le précédent élément du containeur
-* 
-* @Version 1.0
-* @Author Mascret Mehdi
-* @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
-*/
-typedef struct JsonElement JsonElement {
-  char *key;
-  void *value;
-  void *next;
-  void* previous;
-};
-
-/**
-* Permet de rajouter un scalaire
-* 
 * @Field type {JsonScalarType} - Type de l'élément scalaire
 * @Method toCharArray {char*} - Transforme la structure en tableau de caractères
 *
 * @Version 1.0
 * @Author Mascret Mehdi
 * @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
+* @UpdatedOn 13/10/2025
 */
-struct JsonScalar union JsonElement {
-  JsonScalarType type;
+struct JsonScalar {
+  JsonElementType type;
+  char *key;
+  void *value;
+  void *next;
+  void* previous;
+
+  char* (*toCharArray)(const JsonScalar *this);
 };
 
 /**
-* Permet de rajouter un conteneur
+* Permet de rajouter un conteneur de type Object ou Array :
+* Les champs suivants servents au contenur parent
+* @Field next {void*} - Pointeur sur le prochain élément du containeur
+* @Field previous {void*} - Pointeur sur le précédent élément du containeur
+* 
 * @Field type {JsonContainerType} - Type de l'élément conteneur
+* 
 * @Field length {int} - Nombre d'éléments du conteneur
 * @Field first {void*} - Pointeur sur le premier élément que cette instance contient
 * @Field last {void*} - Pointeur sur le dernier élément que cette instance contient
+* @Field key {char*} - Clé de l'élément
+* @Field value {void*} - Valeur de l'élément (char*, int, float, double, boolean)
 * @Method addJsonElement {void} - Ajoute un élément au conteneur [à first]
 * @Method toCharArray {char*} - Transforme la structure en chaine de caractères
 *
 * @Version 1.0
 * @Author Mascret Mehdi
 * @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
+* @UpdatedOn 13/10/2025
 */
-struct JsonContainer union JsonElement {
-  JsonContainerType type;
-  int length;
-  void *first;
-  void *last;
+struct JsonContainer {
+  void *next, *previous;
 
-  void (*addJsonElement)(JsonElement *this, void *add);
-  char* (*toCharArray)(JsonElement *this);
+  JsonElementType type;
+  int length;
+  void *first, *last;
+  char *key;
+  void *value;
+
+  void (*addJsonElement)(const JsonElement *this, void *add);
+  char* (*toCharArray)(const JsonElement *this);
 };
 
 /**
@@ -118,14 +96,14 @@ struct JsonContainer union JsonElement {
 * @Version 1.0
 * @Author Mascret Mehdi
 * @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
+* @UpdatedOn 13/10/2025
 */
 struct Json {
   // Première elements du json
   JsonContainer *node;
 
-  void (*addJsonElement)(Json *this, void *add);
-  char* (*toCharArray)(Json *this);
+  void (*addJsonElement)(const Json *this, void *add);
+  char* (*toCharArray)(const Json *this);
 };
 
 /**
@@ -137,7 +115,7 @@ struct Json {
 * @Version 1.0
 * @Author Mascret Mehdi
 * @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
+* @UpdatedOn 13/10/2025
 */
 Json* create_Json(JsonContainer *node);
 
@@ -158,7 +136,7 @@ Json* create_Json(JsonContainer *node);
 * @Version 1.0
 * @Author Mascret Mehdi
 * @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
+* @UpdatedOn 13/10/2025
 */
 JsonContainer* create_JsonContainer(JsonContainerType type, char *key, void *value);
 
@@ -171,7 +149,7 @@ JsonContainer* create_JsonContainer(JsonContainerType type, char *key, void *val
 * @Version 1.0
 * @Author Mascret Mehdi
 * @CreatedOn 12/10/2025
-* @UpdatedOn 12/10/2025
+* @UpdatedOn 13/10/2025
 */
 JsonScalar* create_JsonScalar(JsonScalarType type, char *key, void *value);
 
