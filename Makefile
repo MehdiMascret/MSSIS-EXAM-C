@@ -18,7 +18,8 @@ compile: main.exe clean
 # Trouver tous les fichiers .o et .a et les supprimer
 clean:
 	echo "Listes des fichiers creer lors de la compilation et qui seront supprimer:"
-	find . -type f \( -name '*.o' -o -name '*.a' \) -print -delete
+	find . -type f \( -name '*.o' -o -name '*.a' \)
+	rm -rf target
 
 
 main.exe: main.o L/main.a G/main.a
