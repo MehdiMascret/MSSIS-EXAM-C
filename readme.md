@@ -94,8 +94,8 @@ Ces lignes de commentaires sont utilisés par les structures et les fonctions af
 - Les elements sont rajouter avant `@Version`
 ```c
 /*
- - @Method methodName {type}	- Explication de la méthode
- - @Params paramName {type}	- Explication de l'argument de la fonction
+ - @Return {type}	- Explication du retour
+ - @Param paramName {type}	- Explication de l'argument de la fonction
 /*
 ```
 **Explications**
