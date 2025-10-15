@@ -72,20 +72,23 @@ Ces lignes de commentaires sont utilisés par les structures et les fonctions af
 - Pour accéder aux données de la structures il include un pointeur qui pointe sur la structure en elle même
 ```c
 /*
- - @Field fieldName {type} - Explication du field
- - @Method methodName {type}	- Explication de la méthode
- - @Method:Arg{methodName} argumentName {type} - Explication de l'argument de la fonction
+ * @Lambda lambdaName {type} - Fonction lambda
+ * @Field fieldName {type} - Explication du field
+ * @Method methodName {type}	- Explication de la méthode
+ * @Method:Arg{methodName} argumentName {type} - Explication de l'argument de la fonction
 */
 ```
 **Explications**
-- `@Field`, `@Method` et `@Method:Arg` peuvent utilisé le même format pour les remarques et les explications. 
+- `@Lambda`, `@Field`, `@Method` et `@Method:Arg` peuvent utilisé le même format pour les remarques et les explications. 
   - Ceux ci servent à donner plus d'explication
-- `{type}` est le type utilisé (types primitif [char, int, float, ...])
+- `{type}` est le type utilisé
   - Retourner pour les méthodes
   - Utilisé pour les champs des structures ou arguments des fonctions
+- `lambdaName` est le nom du champ de la fonction lambda
 - `fieldName` est le nom du champ
 - `methodName` est le nom de la méthod
 - `argumentName` est le nom de l'argument
+
 
 **On mettra toujours** un pointeur, en première position des méthodes de structure, qui seront du même type que la structure qui la possède, **afin** de pouvoir accéder aux champs de la structure.
 
@@ -111,7 +114,7 @@ Ces lignes de commentaires sont utilisés par les structures et les fonctions af
 
 ## Méthodes dans une structures
 - Le code des méthodes dans les structures seront définit dans le fichier **code** qui leur sont associés.
-- Leurs noms auront ce format : `${StructureName_methodName}`
+- Leurs définition auront ce format : `${StructureName_methodName}`
   - On remarquera que ceux qui n'ont pas le nom de la structure seront des fonctions utilisé par autres méthodes nécessaire au `header`
 
 # Programme
