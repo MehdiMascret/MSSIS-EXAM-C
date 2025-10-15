@@ -11,6 +11,15 @@
 typedef char* TestElement_Lambda();
 
 /**
+ * Permet de définir les tests automatique
+ * Doit retourner un null s'il n'y a pas d'erreur
+ * Sinon retourner le message d'erreur
+ * 
+ * @Return {char *} - Message d'erreur
+ */
+typedef void TestAnalyser_Lambda(int sucess, int length, char **messages);
+
+/**
  * Permet de créer des teste automatique
  * @Method free {void}: Permet de liberer l'allocation de la mémoire
  * @Method analyse {void}: Permet de lancer l'analyse
@@ -22,12 +31,12 @@ typedef char* TestElement_Lambda();
 typedef struct Test Test;
 struct Test {
     TestElement_Lambda* (*tests);
-    void (*analyse)(Test* this);
+    void (*analyse)(Test* this, TestAnalyser_Lambda lambda);
     void (*free)(Test* this);
     int length;
     char* label;
 };
 
-Test *create_Test(TestElement_Lambda* (*tests), int length, char* label);
+Test *create_Test(TestElement_Lambda* tests, int length, char* label);
 
 #endif

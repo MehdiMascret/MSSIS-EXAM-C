@@ -1,3 +1,13 @@
 {
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "stdlib.h": "c",
+        "source_location": "c",
+        "system_error": "c",
+        "test.h": "c",
+        "chrono": "c",
+        "span": "c",
+        "type_traits": "c",
+        "stdio.h": "c"
+    }
 }

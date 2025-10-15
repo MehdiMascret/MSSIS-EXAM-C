@@ -1,52 +1,45 @@
 #include "test.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-typedef struct TestAnalyseError TestAnalyseError;
-struct TestAnalyseError {
-    char* message;
-    TestAnalyseError* next;
-};
 
-TestAnalyseError* create_TestAnalyseError(char *message) {
-    TestAnalyseError* error = (TestAnalyseError*) malloc(sizeof(TestAnalyseError));
-
-    error->message = message;
-    error->next = NULL;
-
-    return error;
-}
-void Test_analyse (Test* this) {
+/**
+ * Permet de lancer une analyse.
+ * Si lambda est définit alors on envoye les infos aux lambda
+ * Sinon on affiche une analyse en log.
+ * 
+ * @Param lambda {TestAnalyser_Lambda} - custom analyser
+ */
+void Test_analyse (Test* this, TestAnalyser_Lambda lambda) {
     int success = 0;
-    TestAnalyseError* first = NULL;
-    TestAnalyseError* last = NULL;
 
+    // Compter le nombre de lambda en erreur et listes les messages
+    char **messages = (char**) malloc(this->length * sizeof(char*));
+    
     for (int index = 0; index <= this->length; index++) {
-        char *message = this->tests();
-        if (*message == NULL) {
+        char *message = messages[index];
+        if (message == NULL) {
             success++;
-        };
-        else if (first == NULL) {
-            first = last = create_TestAnalyseError(message);
-        } else {
-            last->next = create_TestAnalyseError(message);
-            last = last->next;
+        }
+        messages[index] = message;
+    }
+
+    // Appeller la fonction lambda
+    if (lambda != NULL)
+        lambda(success, this->length, messages);
+    else {
+        // Afficher l'entete de l'analyse
+        const char* checkOrFalse = success == this->length ? "✅" : "❌";     
+        printf("%s: %s (%d/%d)", checkOrFalse, this->label, success, this->length);
+        // Afficher tout les messages non null
+        for (int index = 0; index <= this->length; index++) {
+            if (messages[index] != NULL)
+                printf("%s\n", messages[index]);
         }
     }
-     
-    if (success == this->length) {
-        printf("✅: %s (%d/%d)", this->label, success, this->length);
-    } else {
-        perror("❌: %s (%d/%d)", this->label, success, this->length);
-    }
 
-    TestAnalyseError* current = first;
-    TestAnalyseError* toFree;
-    while (current) {
-        perror("%s\n", current->message);
-        toFree = current;
-        current = current->next;
-        free(toFree);
-    }
+    // Libérer le pointeurs sur messages
+    free(messages);
 }
 
 void Test_free(Test *this) {
@@ -59,13 +52,13 @@ void Test_free(Test *this) {
     free(this);
 }
 
-Test *create_Test(TestElement_Lambda* (*tests), int length, char* label) {
+Test *create_Test(TestElement_Lambda* tests, int length, char* label) {
     Test *test = (Test *) malloc(sizeof (Test));
 
-    this->length = length;
+    test->length = length;
     test->tests = tests;
-    test->free = free;
-    test->analyse = analyse;
+    test->free = Test_free;
+    test->analyse = Test_analyse;
     test->label = label;
     return test;
 }
