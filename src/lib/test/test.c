@@ -11,6 +11,11 @@
  * @Param lambda {TestAnalyser_Lambda} - custom analyser
  */
 void Test_analyse (Test* this, TestAnalyser_Lambda lambda) {
+
+    printf("--------------------------------\n");
+    printf("%s\n", this->label);
+    printf("--------------------------------\n");
+
     int success = 0;
 
     // Compter le nombre de lambda en erreur et listes les messages

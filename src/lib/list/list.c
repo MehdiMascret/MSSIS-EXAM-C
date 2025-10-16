@@ -17,7 +17,6 @@ void free_ListContainer(ListContainer* container) {
     free(container);
 }
 
-
 /*
 *   Créer une nouvelle liste à partir des elements da la liste actuelle.
 *   Ses élements sont transformer via la fonciton lambda

@@ -4,35 +4,22 @@
 # Appeler gcc avec toute ses options en un seul mot $(GCC)
 GCC = gcc -std=c11 -Wall -Wextra -g
 
+# Trouver tous les fichiers .c
+ALL_CODES := $$(find . -name '*.c' -type f)
 
-# Appeler par make en premier car c'est la première dépendance
-# Créer l'executable
-# Clean l'arborescence
-compile: main.exe clean
+# Compiler tous les fichiers .c dans target
+compile: clean
+	mkdir -p target
+	# Pour chaque fichier .c, créer le fichier .o dans target
+	for code in $(ALL_CODES); do \
+		# Trouver le path de l'output\
+		# %.c=.o permet de transformer l'extension .c en .o\
+		output="target/$${code%.c=.o}"; \
+		# Créer le répertoire du fichier .o dans target à partir du dossier d'output\
+		mkdir -p $$(dirname "$$output"); \
+		# Compiler le fichier .c en .o\
+		echo "Compilation de $$output"; \
+		$(GCC) -c "$$code" -o "$$output"; \
+	done
 
-# Trouver tous les fichiers .o et .a et les supprimer
-clean:
-	echo "Listes des fichiers creer lors de la compilation et qui seront supprimer:"
-	find . -type f \( -name '*.o' -o -name '*.a' \)
-	rm -rf target
-
-
-main.exe: main.o L/main.a G/main.a
-	$(GCC) main.o L/main.a G/main.a -o main.exe
-
-L/main.a: L/main.o
-	ar rcs L/main.a L/main.o
-
-G/main.a: G/main.o
-	ar rcs G/main.a G/main.o
-
-# Compilation des fichiers .c en .o, example: L/main.c -> L/main.o
-# $< est le premier prérequis de la cible
-# $@ est la cible
-%.o: %.c
-# Créer le dossier dans target
-	mkdir -p target/$(dir $@)
-# Compiler le code
-	$(GCC) -c $< -o target/$@
-
-test: test/lib/test.o 
+# Supprime tout les fichiers compilés
