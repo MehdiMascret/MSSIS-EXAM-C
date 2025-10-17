@@ -2,7 +2,8 @@
 .SILENT:
 
 # Appeler gcc avec toute ses options en un seul mot $(GCC)
-GCC = gcc -std=c11 -Wall -Wextra -g
+ADD_WARNING = -Wall -Wextra
+GCC = gcc -std=c11 -g
 
 # Trouver tous les fichiers .c
 ALL_CODES := $$(find . -name '*.c' -type f)
@@ -21,7 +22,7 @@ compile: clean
 		echo "Compilation de $$output"; \
 		$(GCC) -c "$$code" -o "$$output"; \
 	done
-	$(GCC) -o target/src/main $$(find target -name '*.o' -type f) \
+	$(GCC) -o target/src/main $$(find target -name '*.o' -type f) -lcrypto\
 	
 
 # Si le premiere argument est "run" alors je créer la variable RUN_ARGS
@@ -39,4 +40,4 @@ clean:
 
 # Compile, clear le page puis lance l'application
 run: compile
-	./target/src/main $$RUN_ARGS -lcrypto
+	./target/src/main $$RUN_ARGS

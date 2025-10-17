@@ -9,7 +9,6 @@ thita
 iota
 kapa
 lamda
-Fichu lambda en c ! MAUDIT SOIS TU !
 mi
 ni
 xi
