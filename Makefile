@@ -23,3 +23,5 @@ compile: clean
 	done
 
 # Supprime tout les fichiers compilés
+clean:
+	rm -rf target

@@ -1,13 +1,11 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
+        "main.h": "c",
+        "bitset": "c",
+        "string_view": "c",
+        "regex": "c",
         "stdlib.h": "c",
-        "source_location": "c",
-        "system_error": "c",
-        "test.h": "c",
-        "chrono": "c",
-        "span": "c",
-        "type_traits": "c",
         "stdio.h": "c"
     }
 }

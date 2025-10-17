@@ -1,0 +1,25 @@
+alfa
+vita
+gama
+delta
+epsilon
+zita
+ita
+thita
+iota
+kapa
+lamda
+Fichu lambda en c ! MAUDIT SOIS TU !
+mi
+ni
+xi
+omikron
+pi
+ro
+sigma
+taf
+ipsilon
+fi
+chi
+psi
+omega
