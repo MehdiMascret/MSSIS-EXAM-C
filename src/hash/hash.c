@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include "hash.h"
 
-char* Hash_defaultHash(char* text_clair) {
+char* HASH_H256(char* text_clair) {
     return text_clair;
 }
 
 HashAlgorithm hashAlgorithmSingleton = {
-    defaultHash: Hash_defaultHash
+    H256: HASH_H256
 };
 
 Hash* Hash_getHash(char *name) {
-    return hashAlgorithmSingleton.defaultHash;
+    Hash* hash = hashAlgorithmSingleton.H256;
+    return hash;
 }

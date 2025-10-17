@@ -1,9 +1,14 @@
+#ifndef HASH_H
+#define HASH_H
+
 typedef char* Hash (char* text_clair);
 
 typedef struct HashAlgorithm HashAlgorithm;
 
 struct HashAlgorithm {
-    Hash* defaultHash;
+    Hash* H256;
 };
 
 Hash* Hash_getHash(char *name);
+
+#endif

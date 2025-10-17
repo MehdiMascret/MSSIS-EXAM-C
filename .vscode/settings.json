@@ -6,6 +6,7 @@
         "string_view": "c",
         "regex": "c",
         "stdlib.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "search.h": "c"
     }
 }
