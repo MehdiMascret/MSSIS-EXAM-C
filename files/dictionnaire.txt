@@ -21,4 +21,4 @@ ipsilon
 fi
 chi
 psi
-omega
+omega au omellete !
