@@ -1,9 +1,18 @@
+# Créer un container docker
+```shell
+# Build
+sudo docker build -t mehdi_mascret_mssis .
+# Lancer le container
+sudo docker run --rm -it mehdi_mascret_mssis bash
+```
 # Tester le logiciel
 ```shell
 # Compiler d'abord et toujours le code !
 make compile
 # Lancer le mode Generate
 ./target/src/main -G files/rockyou.txt files/keyvalue.txt
+# Penser à bien faire cette commande pour voir les hash histoire de ne pas tester sans avoir de hash en tete
+cat files/keyvalue.txt | head -n 100
 # Lancer le mode Load
 ./target/src/main -L files/keyvalue.txt
 
