@@ -35,8 +35,7 @@ char *read_line(FILE *file) {
 
     return buffer;
 }
-<<<<<<< HEAD
-=======
+
 char **read_line_split_into_two_when_first_appear_separator(FILE *file, char separator) {
     const int maxReader = 1024;
     int length = 1024;
@@ -125,4 +124,3 @@ char *scanfline () {
     }
     return buffer;
 }
->>>>>>> 1d278b8 (FINISHED !)

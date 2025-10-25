@@ -5,7 +5,7 @@ make compile
 # Lancer le mode Generate
 ./target/src/main -G files/rockyou.txt files/keyvalue.txt
 # Lancer le mode Load
-./target/src/main -L files/keyvalue.txt[main.c](src/main.c)
+./target/src/main -L files/keyvalue.txt
 
 ```
 ## Valgrind

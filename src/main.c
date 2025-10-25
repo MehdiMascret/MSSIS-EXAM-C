@@ -50,7 +50,7 @@ int launch(const int argc, char* argv[]) {
     else if (!strcmp(mode, "-G"))
         return CREATE_create(inputFile, outputFileOrToSearch, algo);
     else if (!strcmp(mode, "-L"))
-      return SEARCH_search(inputFile, outputFileOrToSearch, algo);
+      return SEARCH_search(inputFile);
 
     return ERRORS_PROGRAMMES_NEED_MODE;
 }
