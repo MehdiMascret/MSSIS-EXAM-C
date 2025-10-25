@@ -27,6 +27,8 @@ NodeChild* NodeChild_Create(char *key, char *value) {
     NodeChild *child = malloc(sizeof(NodeChild));
     child->key = MALLOC_STRING(key);
     child->value = MALLOC_STRING(value);
+    child->left = NULL;
+    child->right = NULL;
     return child;
 }
 void NodeChild_Add(NodeChild **node, NodeChild *child) {
