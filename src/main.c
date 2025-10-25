@@ -65,28 +65,9 @@ int launch(const int argc, char* argv[]) {
  * 
  */
 int main(const int argc, char* argv[]) {
-//    int result = launch(argc, argv);
-//    Errors_printf(result);
-//    return result;
+    int result = launch(argc, argv);
+    Errors_printf(result);
+    return result;
 
-    HashMap *map = HashMap_Create();
-
-    HashMap_Set(map, "a", "a l'aide pour l'aventure");
-    HashMap_Set(map, "mehdi", "merde de mehdi !");
-    HashMap_Set(map, "mehdi", "j'ai rien dit !");
-
-    char *str = HashMap_Get(map, "a");
-    if (str != NULL)
-        printf("a = %s\n", str);
-    else
-        printf("a introuvable\n");
-
-    str = HashMap_Get(map, "mehdi");
-    if (str != NULL)
-        printf("mehdi = %s\n", str);
-    else
-        printf("mehdi introuvable\n");
-
-    HashMap_Free(map);
     return 0;
 }

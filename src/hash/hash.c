@@ -20,7 +20,7 @@ char HASH_hexLetter(unsigned char hex) {
 }
 
 char* HASH_CharArrayToOctetArray(char *charArray, int charArrayLength) {
-    int length = 2*SHA256_DIGEST_LENGTH + 3;
+    int length = 2*charArrayLength + 3;
     char* octetArray = malloc(length);
     octetArray[0] = '0';
     octetArray[1] = 'x';
@@ -38,36 +38,38 @@ char* HASH_CharArrayToOctetArray(char *charArray, int charArrayLength) {
     }
     return octetArray;
 }
-
 /**
 *    Parties des listes des HASH disponibles
 *    Ils doivent tous passer par HASH_CharArrayToOctetArray(hash, sizeof(hash)) pour
 *    transformer le hash an array d'hexadecimal compréhensible
 */
-
-char* HASH_H256(char* text_clair) {
+char *HASH_H256(char *text_clair) {
     unsigned char digest[SHA256_DIGEST_LENGTH + 1];
     digest[SHA256_DIGEST_LENGTH] = '\0';
     SHA256((unsigned char*)text_clair, strlen(text_clair), digest);
     return HASH_CharArrayToOctetArray(digest, SHA256_DIGEST_LENGTH);
 }
 
-char* HASH_H128(char* text_clair) {
-    unsigned char digest[SHA128_DIGEST_LENGTH + 1];
-    digest[SHA128_DIGEST_LENGTH] = '\0';
-    SHA256((unsigned char*)text_clair, strlen(text_clair), digest);
-    return HASH_CharArrayToOctetArray(digest, SHA128_DIGEST_LENGTH);
+char *HASH_H512(char *text_clair) {
+    unsigned char digest[SHA512_DIGEST_LENGTH + 1];
+    digest[SHA512_DIGEST_LENGTH] = '\0';
+    SHA512((unsigned char*)text_clair, strlen(text_clair), digest);
+    return HASH_CharArrayToOctetArray(digest, SHA512_DIGEST_LENGTH);
 }
-
 
 HashAlgorithm hashAlgorithmSingleton = {
-    H256: HASH_H256,
-    H128: HASH_H128
+    .H256 = HASH_H256,
+    .H512 = HASH_H512,
 };
 
-Hash* Hash_getHash(char *name) {
-    if (name == NULL) return hashAlgorithmSingleton.H256;
-    if (!strcmp(name, "HS256")) return hashAlgorithmSingleton.H256;
-    return NULL;
-}
+Hash Hash_getHash(char *name) {
+    if (name == NULL) return hashAlgorithmSingleton.H512;
 
+    if (!strcmp(name, "SHA256"))
+        return hashAlgorithmSingleton.H256;
+
+    if (!strcmp(name, "SHA512"))
+        return hashAlgorithmSingleton.H512;
+
+    return hashAlgorithmSingleton.H512;
+}

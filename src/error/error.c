@@ -18,5 +18,8 @@ void Errors_printf(enum ERRORS_PROGRAMMES error) {
         case ERRORS_PROGRAMMES_FILE_INPUT_NOT_FOUND:
             printf("ERROR STARTING SERVICE: Le fichier input doit exister\n");
             break;
+        case ERRORS_PROGRAMMES_FILE_OUTPUT_NOT_FOUND:
+            printf("ERROR STARTING SERVICE: Le fichier output doit etre renseigné\n");
+            break;
     }
 }
