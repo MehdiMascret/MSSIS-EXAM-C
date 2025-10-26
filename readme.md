@@ -43,13 +43,12 @@ donné ne sont pas conforme avec le mode utilisé, par example :
 
 Le mode Load :
 - N'a pas besoin des hash donc s'il y une erreur avec les hash elle ne sera pas marquer.
-- N'a pas besoin d'output [read.c](src/read/read.c)donc s'il est inexistant ou inaccessible, il ne renseignera pas d'erreur.
+- N'a pas besoin d'output donc s'il est inexistant ou inaccessible, il ne renseignera pas d'erreur.
 
 # Recherche
 Dans un soucit de rapiditer pour le mode L (Load), j'ai implémenter un code qui tente de se rapprocher du code **Java pour les HashMap**
 
 Vous trouverez la doc de mes recherches en [cliquant ici ](doc/search.md)
-[read.c](src/read/read.c)
 # Performance Valgrind
 ## Mode Generate
 ![Image de Valgrind sur le mode Generate, TOUT EST OK !](doc/img/performance/valgrind_generate_SHA512.png)
