@@ -2,3 +2,4 @@ target
 target/**.o
 *.o
 ./main
+files/keyvalue.txt
