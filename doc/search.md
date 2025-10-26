@@ -1,15 +1,18 @@
 # Hashmap
 Je savais que les hashmap n'etait pas que des pointeur qui pointe directement sur la valeur,
-pour gérer les collission ils font des buckets où chaque pointeur est du type arbre noir rouge,
-j'ai cherché plus de détail dans la doc java, je suis tombé pour les hashmap sur
-**"le facteur de charge"**, j'ai cherché ce que c'etais, je suis tombé sur une page qui explique
+pour gérer les collission ils utilise des buckets où chaque **pointer** est du type arbre noir-rouge,
+J'ai cherché plus de détail dans la doc java, je suis tombé pour les hashmap sur
+**le facteur de charge** qui est conseillé à 0.75, j'ai cherché ce que c'etais, je suis tombé sur une page qui explique
 **"Par exemple, si votre table de hachage peut contenir 100 éléments et contient actuellement 50 éléments,
 le facteur de charge est de 0,5 (50%)."**
-Donc on a un calcule qui permet d'obtenir ce facteur de charge et que plus ce facteur est faible mieux c'est !
+
+Donc :
+- Le valeur que l'on doit viser est 0.75
+- on a un calcule qui permet d'obtenir ce facteur de charge et que plus ce facteur est faible mieux c'est !
 
 En cherchant plus loin je suis suis tombé sur un calcul qui permet de passer outre le modulo pour etre plus rapide. 
 
-Cet optimisation ne fonctionne que si `n est une puissance de 2` :
+Cet optimisation ne fonctionne que si `la capacité (n) [un tableau de pointeur] est une puissance de 2` :
 ```c++
 // n est la capcité
 // Lent
@@ -30,6 +33,8 @@ int hash(int key) {
 }
 ```
 
+Je ne l'ai pas utilisé car je n'ai pas compris **où exactement il faut l'utiliser**
+
 ## Réferences
 
 Super Doc trouvé : https://medium.com/@reetesh043/understanding-hashmap-in-java-f2fddb1f3b44
@@ -37,7 +42,7 @@ Super Doc trouvé : https://medium.com/@reetesh043/understanding-hashmap-in-java
 Buckets: Image interressant mais doit remplacer ArrayList par Tree pour notre example
 https://stackoverflow.com/questions/37959941/what-exactly-is-bucket-in-hashmap
 
-Début :
+### Début :
 - https://stackoverflow.com/questions/7666509/hash-function-for-string
 - https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html : Load facteur à 0.75 ?
 

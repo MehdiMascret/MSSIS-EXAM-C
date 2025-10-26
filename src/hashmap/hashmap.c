@@ -19,6 +19,11 @@
 #define HashMapCapacity 16777216
 #define HashMapCapacityAndCalcul 16777215 // (HashMapCapacity - 1)
 
+/**
+* Fonction célèbre permettant de transformer une chaine de carractère en hash
+* @parm str <char*> chaine de carractère à hasher
+* @return un hash
+*/
 unsigned long djb2(const char *str) {
     unsigned long hash = 5381;
     unsigned char c;
@@ -26,10 +31,18 @@ unsigned long djb2(const char *str) {
         hash = (hash << 5) + hash + c;
     return hash;
 }
+
+/**
+* Transforme un hash en index de tableau
+*/
 unsigned long HashMap_Index(unsigned long hash) {
     return hash & HashMapCapacityAndCalcul;
 }
 
+/**
+ * Permet de créer une Hashmap presque comme Java
+ * @return une HashMap
+ */
 HashMap *HashMap_Create() {
     HashMap *map = malloc(sizeof (HashMap));
 
@@ -39,6 +52,10 @@ HashMap *HashMap_Create() {
     return map;
 }
 
+/**
+ * Permet de désalloué une HashMap
+ * @param map <HashMap> La map a désalloué
+ */
 void HashMap_Free(HashMap *map) {
     if (!map) return;
     for (unsigned long i = 0; i < HashMapCapacity; i++) {
@@ -51,6 +68,12 @@ void HashMap_Free(HashMap *map) {
     free(map);
 }
 
+/**
+ * Permet d'ajouter un element à la map
+ * @param map <HashMap*> element à rajouter dans cette map
+ * @param key <char*> clé de l' element
+ * @param value <char*> valeur de l' element
+ */
 void HashMap_Set(HashMap *map, char *key, char *val) {
     int index = HashMap_Index(djb2(key));
     if (map->statesOfNodes[index] == 0) {
@@ -60,6 +83,12 @@ void HashMap_Set(HashMap *map, char *key, char *val) {
     Node_Add(map->nodes[index], key, val);
 }
 
+/**
+ * Permet d'obtenir la valeur associée à la clé
+ * @param map <HashMap*> la map qui contient la clé
+ * @param key <char*> la clé associée à la valeur
+ * @return La valeur associée à la clé
+ */
 char* HashMap_Get(HashMap *map, char *key) {
     int index = HashMap_Index(djb2(key));
     if (map->statesOfNodes[index] == 0)

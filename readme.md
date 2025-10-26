@@ -1,11 +1,16 @@
-# Créer un container docker
+# Commandes
+## Créer un container docker
 ```shell
 # Build
 sudo docker build -t mehdi_mascret_mssis .
 # Lancer le container
 sudo docker run --rm -it mehdi_mascret_mssis bash
 ```
-# Tester le logiciel
+## Tester le logiciel
+**A savoir** : 
+- On ne peut pas avoir deux mode **(Load / Generate)** en même temps pour cette version de code !
+- Pour quitter le mode Load, il faut taper "exit" une fois que vous pourrez taper des commandes
+
 ```shell
 # Compiler d'abord et toujours le code !
 make compile
@@ -32,3 +37,22 @@ valgrind target/src/main -L files/keyvalue.txt
 # Algo 256
 ./target/src/main -G files/rockyou.txt files/keyvalue.txt -Algo SHA256
 ```
+## A savoir
+Le programme ne retournera une erreur que si les paramètre 
+donné ne sont pas conforme avec le mode utilisé, par example :
+
+Le mode Load :
+- N'a pas besoin des hash donc s'il y une erreur avec les hash elle ne sera pas marquer.
+- N'a pas besoin d'output [read.c](src/read/read.c)donc s'il est inexistant ou inaccessible, il ne renseignera pas d'erreur.
+
+# Recherche
+Dans un soucit de rapiditer pour le mode L (Load), j'ai implémenter un code qui tente de se rapprocher du code **Java pour les HashMap**
+
+Vous trouverez la doc de mes recherches en [cliquant ici ](doc/search.md)
+[read.c](src/read/read.c)
+# Performance Valgrind
+## Mode Generate
+![Image de Valgrind sur le mode Generate, TOUT EST OK !](doc/img/performance/valgrind_generate_SHA512.png)
+## Mode Load
+![Image de Valgrind sur le mode Load, TOUT EST OK !](doc/img/performance/valgrind_load_SHA512.png)
+

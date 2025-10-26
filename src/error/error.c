@@ -1,6 +1,10 @@
 #include "error.h"
 #include <stdio.h>
 
+/**
+* Transforme l'erreur en message comprehensible par l'utilisateur
+* @param error <enum ERRORS_PROGRAMMES> message d'erreur
+*/
 void Errors_printf(enum ERRORS_PROGRAMMES error) {
     switch (error) {
         case ERRORS_PROGRAMMES_ONLY_ONE_MODE:
@@ -21,5 +25,7 @@ void Errors_printf(enum ERRORS_PROGRAMMES error) {
         case ERRORS_PROGRAMMES_FILE_OUTPUT_NOT_FOUND:
             printf("ERROR STARTING SERVICE: Le fichier output doit etre renseigné\n");
             break;
+        case ERRORS_PROGRAMMES_HASH_NOT_INITIALIZED:
+            printf("ERROR STARTING SERVICE: Le hash n'a pas été reconnue\n");
     }
 }
