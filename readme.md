@@ -12,7 +12,7 @@ sudo docker run --rm -it mehdi_mascret_mssis bash
 - Pour quitter le mode Load, il faut taper "exit" une fois que vous pourrez taper des commandes
 
 ```shell
-# Compiler d'abord et toujours le code !
+# Compiler d'abord et toujours le code ! Dans le container build pas besoin
 make compile
 # Lancer le mode Generate
 ./target/src/main -G files/rockyou.txt files/keyvalue.txt
