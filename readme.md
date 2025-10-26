@@ -5,6 +5,8 @@
 sudo docker build -t mehdi_mascret_mssis .
 # Lancer le container
 sudo docker run --rm -it mehdi_mascret_mssis bash
+# Si Valgrind est bloquer dans le container
+sudo docker run --rm -it --ulimit nofile=1048576:1048576 mehdi_mascret_mssis bash
 ```
 ## Tester le logiciel
 **A savoir** : 
