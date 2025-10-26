@@ -9,3 +9,7 @@ COPY Makefile /app
 COPY files /app/files
 
 WORKDIR /app
+
+RUN bash -c make compile
+
+CMD ["bash"]
