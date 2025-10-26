@@ -10,6 +10,10 @@ COPY files /app/files
 
 WORKDIR /app
 
-RUN bash -c make compile
-
 CMD ["bash"]
+
+RUN make compile
+
+#Génère la rainbow table pour plus de confort lors des testes
+RUN target/src/main -G files/rockyou.txt files/keyvalue.txt
+
