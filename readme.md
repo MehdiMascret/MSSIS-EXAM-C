@@ -57,3 +57,27 @@ Vous trouverez la doc de mes recherches en [cliquant ici ](doc/search.md)
 ## Mode Load
 ![Image de Valgrind sur le mode Load, TOUT EST OK !](doc/img/performance/valgrind_load_SHA512.png)
 
+# Fonctionnement du programme
+
+```mermaid
+sequenceDiagram
+  autonumber
+
+
+  Main->>mainStrategy: Action à réaliser
+  alt Generate
+    mainStrategy->>CREATE_create:
+    CREATE_create->>Hash_getHash: Récupère le Hash
+    Hash_getHash->>CREATE_create: Donne la fonction lambda de hash
+    CREATE_create->>Rainbow Table: Ecris dans la rainbow table
+  else Load
+    mainStrategy->>SEARCH_search:
+    SEARCH_search->>SEARCH_generateMap: Générer une HashMap
+    SEARCH_generateMap->>SEARCH_search: HashMap fonctionnel
+    SEARCH_generateMap->>Rainbow Table: Récupère les clé et valeur
+    SEARCH_search->>scanfline: Lis l'input utilisateur tant que l'utilisateur n'ecrit pas "exit"
+    SEARCH_search->>HashMap_Get: Cherche la valeur à partir du hash
+  end
+
+
+```
