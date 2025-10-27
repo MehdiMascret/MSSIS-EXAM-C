@@ -24,16 +24,6 @@ compile: clean
 	done
 	$(GCC) -o target/src/main $$(find target -name '*.o' -type f) -lcrypto\
 	
-
-# Si le premiere argument est "run" alors je créer la variable RUN_ARGS
-# Merci stackoverflow
-ifeq (run,$(firstword $(MAKECMDGOALS)))
-  # use the rest as arguments for "run"
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  # ...and turn them into do-nothing targets
-  $(eval $(RUN_ARGS):;@:)
-endif
-
 # Supprime tout les fichiers compilés
 clean:
 	rm -rf target
